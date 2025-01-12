@@ -185,10 +185,10 @@ export  const refreshToken = async (req, res) => {
 
 
 
-// export const getProfile = async (redis, req) => {
-//     try{
+export const getProfile = async (req, res) => {
+    try{
        
-//     } catch (error) {
+    } catch (error) {
 
-//     }
-// }
+    }
+}

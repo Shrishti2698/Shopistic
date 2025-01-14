@@ -1,13 +1,23 @@
 // install all the packages in terminal:-  npm i axios @stripe/stripe-js framer-motion lucide-react react-confetti react-hot-toast react-router-dom recharts zustand
 
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import Navbar from "./components/Navbar.jsx";
+import { Toaster } from "react-hot-toast";
+import { useUserStore } from "./stores/useUserStore.js";
+import { useEffect } from "react";
 
 
 const App = () => {
+  const {user, checkAuth, checkingAuth} = useUserStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  if(checkingAuth) return <LoadingSpinner />;
 
   return (
   <div className="min-h-screen bg-gray-900 text-white relative overflow-hidden ">
@@ -22,10 +32,11 @@ const App = () => {
    <Navbar/>
     <Routes>
       <Route path='/' element={<HomePage/>}/>
-      <Route path='/signup' element={<SignUpPage/>}/>
-      <Route path='/login' element={<LoginPage/>}/>
+      <Route path='/signup' element={!user ? <SignUpPage/> : <Navigate to='/' />}/>
+      <Route path='/login' element={!user ? <LoginPage/> : <Navigate to='/' />}/> {/*if user is not authenticated then show the loginPage otherwise naviagte to homePage*/}
     </Routes>
     </div>
+    <Toaster/>
   </div>
   )
 }

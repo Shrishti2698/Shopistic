@@ -82,7 +82,7 @@ export const useUserStore = create((set, get) => ({
 // TODO: Implement the axios interceptors for refreshing access token
 
 // Axios interceptor for token refresh  (as this token will refresh in every 15 mins and user can't login every 15 mins). 
-// Hence, we use the concept called, "interceptor"
+// Hence, we use the concept called, "interceptor". it will kinda refresh the access token in every 15 min 
 let refreshPromise = null;
 
 axios.interceptors.response.use(
@@ -114,3 +114,8 @@ axios.interceptors.response.use(
 		return Promise.reject(error);
 	}
 );
+
+
+
+// once we login (onClick "login"), we should be able to get a refresh token (expire in 7 days) on my dashboard 
+// And when the user logout, the access token would be deleted

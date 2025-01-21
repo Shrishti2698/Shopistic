@@ -87,6 +87,7 @@ const Navbar = () => {
                   <UserPlus className="mr-2" size={18} />   
                   Sign Up
                 </Link>
+                
                 <Link
                   to={"/login"}
                   className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 

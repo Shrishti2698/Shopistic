@@ -103,7 +103,8 @@ const CreateProductForm = () => {
 					/>
 				</div>
 
-				<div>
+              {/*  Dropdown */}
+				<div>  
 					<label htmlFor='category' className='block text-sm font-medium text-gray-300'>
 						Category
 					</label>
@@ -147,7 +148,7 @@ const CreateProductForm = () => {
 				>
 					{loading ? (
 						<>
-							<Loader className='mr-2 h-5 w-5 animate-spin' aria-hidden='true' />
+							<Loader className='mr-2 h-5 w-5 animate-spin' aria-hidden='true' />  
 							Loading...
 						</>
 					) : (
@@ -165,7 +166,7 @@ const CreateProductForm = () => {
 export default CreateProductForm;
 
 // 4:43:50
-// then go to cloudinary to check for4 the image uploaded or so... we'll get the image url there in the cloudinary
+// then go to cloudinary to check for the image uploaded or so... we'll get the image url there in the cloudinary
 // Also, keep on checking mongoose Atlas 
 
-// if we (developer) want to increase the image image size limit, we can; in server.js
+// if we (developer) want to increase the image size limit, we can; in server.js

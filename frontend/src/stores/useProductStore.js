@@ -1,3 +1,12 @@
+// ADMIN PRODUCT LIST... ALL THE PRODUCTS WILL BE SHOWN TO THE ADMIN. 
+// Basically fetching the products from mongoDB and showing them in this page
+
+// three main fuctionalities here,
+// 1. fetching the products from mongoDB
+// 2. featuring/ unfeaturing (check/ uncheck) the star
+// 3. to be able to delete
+
+
 import { create } from "zustand";
 import toast from "react-hot-toast";
 import axios from "../lib/axios";
@@ -10,6 +19,7 @@ export const useProductStore = create((set) => ({
 	createProduct: async (productData) => {
 		set({ loading: true });
 		try {
+            // refer product.controllers.js "products"
 			const res = await axios.post("/products", productData);  // post to our end point, which is "/products". And we'll send the productData which is coming from the admin 
 			set((prevState) => ({
 				products: [...prevState.products, res.data],
@@ -28,7 +38,7 @@ export const useProductStore = create((set) => ({
 			set({ products: response.data.products, loading: false });
 		} catch (error) {
 			set({ error: "Failed to fetch products", loading: false });
-			toast.error(error.response.data.error || "Failed to fetch products");
+			toast.error(error.response.data.error || "Failed to fetch products");  // it will show the custom msg if error.response.data.error is not shown
 		}
 	},
 
@@ -43,12 +53,13 @@ export const useProductStore = create((set) => ({
 		}
 	},
 
-	deleteProduct: async (productId) => {
+	deleteProduct: async (productId) => {  // delete the product and check it in mongoose Atlas
 		set({ loading: true });
+        // we deleted our product and filtered out the state
 		try {
-			await axios.delete(`/products/${productId}`);
+			await axios.delete(`/products/${productId}`);  
 			set((prevProducts) => ({
-				products: prevProducts.products.filter((product) => product._id !== productId),
+				products: prevProducts.products.filter((product) => product._id !== productId), // finding/filtering the product that we just deleted and remove it from the state
 				loading: false,
 			}));
 		} catch (error) {
@@ -72,7 +83,7 @@ export const useProductStore = create((set) => ({
 			set({ loading: false });
 			toast.error(error.response.data.error || "Failed to update product");
 		}
-	},
+	},   // check in mongoose Atlas
 
 	fetchFeaturedProducts: async () => {
 		set({ loading: true });

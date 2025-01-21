@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import AnalyticsTab from "../components/AnalyticsTab.jsx";
 import CreateProductForm from "../components/CreateProductForm.jsx";
 import ProductsList from "../components/ProductsList.jsx";
-// import { useProductStore } from "../stores/useProductStore";
+import { useProductStore } from "../stores/useProductStore";
 
 const tabs = [
 	{ id: "create", label: "Create Product", icon: PlusCircle },
@@ -16,9 +16,9 @@ const AdminPage = () => {
 	const [activeTab, setActiveTab] = useState("create");
 	const { fetchAllProducts } = useProductStore();
 
-	// useEffect(() => {
-	// 	fetchAllProducts();
-	// }, [fetchAllProducts]);
+	useEffect(() => {
+		fetchAllProducts();
+	}, [fetchAllProducts]);
 
 	return (
 		<div className='min-h-screen relative overflow-hidden'>

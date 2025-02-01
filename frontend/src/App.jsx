@@ -10,6 +10,8 @@ import CategoryPage from "./pages/CategoryPage.jsx";
 import { Toaster } from "react-hot-toast";
 import { useUserStore } from "./stores/useUserStore.js";
 import { useEffect } from "react";
+import LoadingSpinner from "./components/LoadingSpinner";
+
 
 
 const App = () => {

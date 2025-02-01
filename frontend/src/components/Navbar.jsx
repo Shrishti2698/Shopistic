@@ -2,6 +2,8 @@ import React from "react";
 import { ShoppingCart, UserPlus, LogIn, LogOut, Lock } from "lucide-react"; // lucide-react is the package for icons
 import { Link } from "react-router-dom";
 import { useUserStore } from "../stores/useUserStore.js";
+import { useCartStore } from "../stores/useCartStore.js";
+
 
 const Navbar = () => {
 

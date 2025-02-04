@@ -24,7 +24,7 @@ const storeRefreshToken = async (userId, refreshToken) => {
   ); // expires in (EX) 7 days
 };
 
-const setCookies = (accessToken, refreshToken) => {
+const setCookies = (res, accessToken, refreshToken) => {
   res.cookie("access-token", accessToken, {
     // access-token is the key name. And accessToken is token value
     httpOnly: true, // this is preventing an attack call called, XSS (cross site scripting) attack  (security)
@@ -103,9 +103,13 @@ export const login = async (req, res) => {
   try{
     const { email, password } = req.body    // email, password - coz user wants to login with them
     const user = await User.findOne({email})
+    console.log(res);
+    
 
     if(user && (await user.comparePassword(password))) {
         const {accessToken, refreshToken} = generateTokens(user._id);
+        console.log(accessToken);
+        
         await storeRefreshToken(user._id, refreshToken)  // storing
         setCookies(res, accessToken, refreshToken)
 
@@ -120,7 +124,7 @@ export const login = async (req, res) => {
     }
   } catch (error) {
     console.log("Error in login controller", error.message);
-    res.status(500).json({ message: error.message });
+    res.status(501).json({ message: error.message });
   }
   
 };
@@ -172,7 +176,8 @@ export  const refreshToken = async (req, res) => {
      res.cookie("accessToken", accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        maxAge: 15*60*1000
+        sameSite: "strict",
+        maxAge: 15*60*1000,
      })  // setting it to the cookie as the previous cookie is expired 
 
      res.json({message: "Token refresh successfully"})

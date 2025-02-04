@@ -36,8 +36,10 @@ export const useUserStore = create((set, get) => ({
 		try {
 			const res = await axios.post("/auth/login", { email, password });
 
-			set({ user: res.data, loading: false });  // res.data is correct coz res.data.user is undefined
+			set({ user: res.data, loading: false }) // res.data is correct coz res.data.user is undefined
 		} catch (error) {
+			console.log(error);
+			
 			set({ loading: false });
 			toast.error(error.response.data.message || "An error occurred");
 		}
@@ -56,9 +58,9 @@ export const useUserStore = create((set, get) => ({
 		set({ checkingAuth: true });
 		try {
 			const response = await axios.get("/auth/profile");
-			set({ user: response.data, checkingAuth: false }); // it will return user profile. Once we got it, we gonna say checkingAuth: false
+			set({ user: response.data, checkingAuth: false }) // it will return user profile. Once we got it, we gonna say checkingAuth: false
 		} catch (error) {
-			console.log(error.message);
+			console.log("Profile auth error : ",error.message);
 			set({ checkingAuth: false, user: null });
 		}
 	},
@@ -83,7 +85,8 @@ export const useUserStore = create((set, get) => ({
 
 // Axios interceptor for token refresh  (as this token will refresh in every 15 mins and user can't login every 15 mins). 
 // Hence, we use the concept called, "interceptor". it will kinda refresh the access token in every 15 min 
-let refreshPromise = null;
+let refreshPromise = null; 
+// We have to use Refresh Token to be able to get the Access Token
 
 axios.interceptors.response.use(
 	(response) => response,

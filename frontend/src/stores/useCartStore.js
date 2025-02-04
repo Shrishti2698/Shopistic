@@ -19,9 +19,9 @@ export const useCartStore = create((set, get) => ({
 	},
 	applyCoupon: async (code) => {
 		try {
-			const response = await axios.post("/coupons/validate", { code });
-			set({ coupon: response.data, isCouponApplied: true });
-			get().calculateTotals();
+			const response = await axios.post("/coupons/validate", { code });  // We're saying that validate the coupon and here's the "code"
+			set({ coupon: response.data, isCouponApplied: true });  // Once we got the response we've set the coupon w that response
+			get().calculateTotals();  // to update the "total" state
 			toast.success("Coupon applied successfully");
 		} catch (error) {
 			toast.error(error.response?.data?.message || "Failed to apply coupon");
@@ -44,7 +44,7 @@ export const useCartStore = create((set, get) => ({
 		}
 	},
 
-	clearCart: async () => {
+	clearCart: async () => {  // product (count) should be deleted from the cart as we've purchsed the product
 		set({ cart: [], coupon: null, total: 0, subtotal: 0 });
 	},
 

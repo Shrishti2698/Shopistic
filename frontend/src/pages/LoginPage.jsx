@@ -16,7 +16,7 @@ const LoginPage = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(email, password);
-		LogIn(email, password);
+		login(email, password);
 	};
 
   return (

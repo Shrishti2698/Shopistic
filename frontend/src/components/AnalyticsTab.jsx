@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "../lib/axios";
 import { Users, Package, ShoppingCart, DollarSign } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+// Recharts is a free, open-source JavaScript library for creating charts in React applications
 
 const AnalyticsTab = () => {
 	const [analyticsData, setAnalyticsData] = useState({
@@ -62,6 +63,7 @@ const AnalyticsTab = () => {
 					color='from-emerald-500 to-lime-700'
 				/>
 			</div>
+
 			<motion.div
 				className='bg-gray-800/60 rounded-lg p-6 shadow-lg'
 				initial={{ opacity: 0, y: 20 }}
@@ -80,7 +82,7 @@ const AnalyticsTab = () => {
 							yAxisId='left'
 							type='monotone'
 							dataKey='sales'
-							stroke='#10B981'
+							stroke='#10B981'  // color
 							activeDot={{ r: 8 }}
 							name='Sales'
 						/>
@@ -88,7 +90,7 @@ const AnalyticsTab = () => {
 							yAxisId='right'
 							type='monotone'
 							dataKey='revenue'
-							stroke='#3B82F6'
+							stroke='#3B82F6'   // color
 							activeDot={{ r: 8 }}
 							name='Revenue'
 						/>

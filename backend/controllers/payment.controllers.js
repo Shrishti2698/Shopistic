@@ -26,7 +26,7 @@ export const createCheckoutSession = async (req, res) => {
 					},
 					unit_amount: amount,
 				},
-				quantity: product.quantity || 1,
+				quantity: product.quantity || 1,  // if it's empty we can add "1"
 			};
 		});
 
@@ -43,7 +43,7 @@ export const createCheckoutSession = async (req, res) => {
 			line_items: lineItems,
 			mode: "payment",
 			// onClick of   "Pay"  button (on payment)
-			success_url: `${process.env.CLIENT_URL}/purchase-success?session_id={CHECKOUT_SESSION_ID}`,  // if everything goes correctly we're gonna take the user to the success page
+			success_url: `${process.env.CLIENT_URL}/purchase-success?session_id={CHECKOUT_SESSION_ID}`,  // if everything goes correctly we're gonna take the user to the success page (white bg payment page)
 			// when we'll deploy our application, this url is gonna change.
 			cancel_url: `${process.env.CLIENT_URL}/purchase-cancel`,  // if user clicks on the back arrrow on top left  // it'll say something like- "why u went back, pls came back later"
 			discounts: coupon
